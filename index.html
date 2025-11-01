@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama's Kitchen - Southern Comfort Food</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+        }
+
+        header {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #2c2c2c;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+            animation: expandWidth 0.8s ease 0.3s both;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            border: 2px solid #d4af37;
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item h3 {
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .menu-item h3 i {
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover h3 i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .menu-item .price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .about {
+            background: linear-gradient(rgba(253, 246, 233, 0.95), rgba(253, 246, 233, 0.95)),
+                        url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 4rem 1rem;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #ffffff 0%, #fdf6e9 100%);
+        }
+
+        .info-card h3 {
+            color: #8b4513;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-card h3 i {
+            color: #d4af37;
+            margin-right: 0.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .info-card:hover h3 i {
+            transform: scale(1.3) rotate(10deg);
+            color: #8b4513;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            color: white;
+            padding: 3rem 1rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-section {
+            animation: fadeIn 0.8s ease;
+        }
+
+        .footer-section:nth-child(1) { animation-delay: 0.1s; }
+        .footer-section:nth-child(2) { animation-delay: 0.2s; }
+        .footer-section:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-section h4 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #ccc;
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #d4af37;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            color: #d4af37;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #d4af37;
+            color: #2c2c2c;
+            transform: translateY(-3px) rotate(360deg);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            color: #999;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            background: linear-gradient(135deg, #e6c158 0%, #d4af37 100%);
+        }
+
+        .scroll-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .specials {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            padding: 4rem 1rem;
+        }
+
+        .specials h2 {
+            color: white;
+        }
+
+        .specials h2::after {
+            background: white;
+        }
+
+        .specials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            .specials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .specials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .special-card {
+            background: rgba(255,255,255,0.95);
+            padding: 0;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-card.sunday {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(253,246,233,0.98) 100%);
+            border: 2px solid #d4af37;
+        }
+
+        .special-card.sunday .special-day {
+            font-size: 1.8rem;
+        }
+
+        .special-card.sunday h3 {
+            font-size: 1.8rem;
+        }
+
+        .special-card::after {
+            content: '👉 Click to learn more';
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: #d4af37;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .special-card:hover::after {
+            opacity: 1;
+        }
+
+        .special-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: white;
+        }
+
+        .special-card:hover .special-day {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .special-card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .special-card-content {
+            padding: 1.5rem;
+        }
+
+        .special-day {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .special-card h3 {
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .special-card p {
+            color: #666;
+        }
+
+        .testimonials {
+            padding: 4rem 1rem;
+            background: #f9f9f9;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #fdf6e9 100%);
+        }
+
+        .testimonial-card::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 2rem;
+            color: #d4af37;
+            opacity: 0.3;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 0.6;
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author {
+            color: #8b4513;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover .stars i {
+            animation: starPulse 0.6s ease infinite;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .testimonial-card:hover .stars i:nth-child(1) { animation-delay: 0s; }
+        .testimonial-card:hover .stars i:nth-child(2) { animation-delay: 0.1s; }
+        .testimonial-card:hover .stars i:nth-child(3) { animation-delay: 0.2s; }
+        .testimonial-card:hover .stars i:nth-child(4) { animation-delay: 0.3s; }
+        .testimonial-card:hover .stars i:nth-child(5) { animation-delay: 0.4s; }
+
+        .gallery {
+            padding: 4rem 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .community {
+            background: linear-gradient(rgba(139, 69, 19, 0.9), rgba(139, 69, 19, 0.9)),
+                        url('https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .community h2 {
+            color: white;
+        }
+
+        .community h2::after {
+            background: white;
+        }
+
+        .community-content {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .community-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .community-icons {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .community-icon {
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .community-icon:hover {
+            transform: translateY(-10px);
+        }
+
+        .community-icon i {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .community-icon:hover i {
+            transform: scale(1.2) rotate(360deg);
+            color: white;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+        }
+
+        .community-icon h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .community-icon p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo"><i class="fas fa-utensils"></i> Mama's Kitchen</div>
+            <nav>
+                <a href="#menu">Menu</a>
+                <a href="#about">About</a>
+                <a href="#contact">Visit Us</a>
+            </nav>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#menu" onclick="toggleMenu()">Menu</a>
+            <a href="#about" onclick="toggleMenu()">About</a>
+            <a href="#contact" onclick="toggleMenu()">Visit Us</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Mama's Kitchen</h1>
+        <p>Where every meal feels like coming home</p>
+        <a href="#specials" class="btn">Make Yourself at Home</a>
+    </section>
+
+    <div class="container">
+        <section id="menu" class="section">
+            <h2>Our Favorites</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fried Chicken" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-drumstick-bite"></i> Fried Chicken Platter</h3>
+                        <div class="price">$12.99</div>
+                        <p>Crispy golden fried chicken served with mashed potatoes, gravy, and green beans</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/3688/food-dinner-lunch-unhealthy.jpg?auto=compress&cs=tinysrgb&w=600" alt="Country Fried Steak" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-bacon"></i> Country Fried Steak</h3>
+                        <div class="price">$13.99</div>
+                        <p>Hand-breaded and fried to perfection, smothered in our homemade white gravy</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/5175563/pexels-photo-5175563.jpeg?auto=compress&cs=tinysrgb&w=600" alt="BBQ Pulled Pork" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-fire"></i> BBQ Pulled Pork</h3>
+                        <div class="price">$11.99</div>
+                        <p>Slow-cooked pork with our secret sauce, served with coleslaw and cornbread</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/7627411/pexels-photo-7627411.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Meatloaf" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-hamburger"></i> Mama's Meatloaf</h3>
+                        <div class="price">$10.99</div>
+                        <p>Classic homestyle meatloaf with mac and cheese and collard greens</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Shrimp and Grits" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-shrimp"></i> Shrimp & Grits</h3>
+                        <div class="price">$14.99</div>
+                        <p>Gulf shrimp over creamy stone-ground grits with Cajun gravy</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.pexels.com/photos/265393/pexels-photo-265393.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pecan Pie" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3><i class="fas fa-pie-slice"></i> Pecan Pie</h3>
+                        <div class="price">$5.99</div>
+                        <p>Made fresh daily with local pecans and served with vanilla ice cream</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn"><i class="fas fa-book-open"></i> View Full Menu</a>
+            </div>
+        </section>
+    </div>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="about-content">
+                <p>For over 30 years, Mama's Kitchen has been serving up Southern comfort food made with love, just like Mama used to make. Our recipes have been passed down through generations, and we're proud to share them with our community.</p>
+                <p>We believe in using fresh, quality ingredients and cooking everything from scratch. When you walk through our doors, you're not just a customer – you're family.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="specials" id="specials">
+        <div class="container">
+            <h2>Daily Specials</h2>
+            <div class="specials-grid">
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pot Roast" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Monday</span>
+                        <h3>Pot Roast Night</h3>
+                        <p>Tender beef pot roast with carrots, potatoes, and homemade gravy</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/6544378/pexels-photo-6544378.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken and Dumplings" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Tuesday</span>
+                        <h3>Chicken & Dumplings</h3>
+                        <p>Fluffy homemade dumplings in rich chicken broth with tender chicken</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/8689339/pexels-photo-8689339.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fried Catfish" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Wednesday</span>
+                        <h3>Fried Catfish</h3>
+                        <p>Fresh catfish, hand-breaded and fried, served with hush puppies</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/769290/pexels-photo-769290.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Smothered Pork Chops" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Thursday</span>
+                        <h3>Smothered Pork Chops</h3>
+                        <p>Thick-cut pork chops smothered in onion gravy with green beans</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/6478799/pexels-photo-6478799.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fish Fry" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Friday</span>
+                        <h3>Fish Fry</h3>
+                        <p>All-you-can-eat fish with french fries, coleslaw, and cornbread</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/2491273/pexels-photo-2491273.jpeg?auto=compress&cs=tinysrgb&w=600" alt="BBQ Ribs" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Saturday</span>
+                        <h3>BBQ Ribs</h3>
+                        <p>Fall-off-the-bone ribs glazed with our secret sauce, served with mac & cheese</p>
+                    </div>
+                </div>
+                <div class="special-card sunday">
+                    <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sunday Supper" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Sunday</span>
+                        <h3>Sunday Supper</h3>
+                        <p>Rotating family-style meal with all the fixings, just like Sunday dinner at home</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Neighbors Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Best fried chicken I've had since my grandma's! The mashed potatoes are creamy perfection, and that gravy... don't even get me started. This place is a local treasure."</p>
+                    <div class="testimonial-author">
+                        <span>— Sarah M.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"My family has been coming here for 15 years. It's become our Sunday tradition after church. The staff knows us by name, and the food is consistently delicious."</p>
+                    <div class="testimonial-author">
+                        <span>— Robert & Linda T.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Real Southern cooking made with love. The portions are generous, the prices are fair, and the atmosphere makes you feel right at home. Highly recommend the shrimp and grits!"</p>
+                    <div class="testimonial-author">
+                        <span>— James K.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <h2>From Our Kitchen</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fried Chicken">
+                    <div class="gallery-overlay">
+                        <h4>Our Famous Fried Chicken</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/7627411/pexels-photo-7627411.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Comfort Food">
+                    <div class="gallery-overlay">
+                        <h4>Homestyle Comfort</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/5175563/pexels-photo-5175563.jpeg?auto=compress&cs=tinysrgb&w=600" alt="BBQ">
+                    <div class="gallery-overlay">
+                        <h4>Slow-Cooked BBQ</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Desserts">
+                    <div class="gallery-overlay">
+                        <h4>Homemade Desserts</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/4553111/pexels-photo-4553111.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fresh Ingredients">
+                    <div class="gallery-overlay">
+                        <h4>Fresh Ingredients Daily</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cozy Atmosphere">
+                    <div class="gallery-overlay">
+                        <h4>Cozy Atmosphere</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community">
+        <div class="container">
+            <h2>Proud to Serve Our Community</h2>
+            <div class="community-content">
+                <p>For three decades, we've been more than just a restaurant—we're part of the fabric of this town. From sponsoring little league teams to hosting church gatherings, we're honored to be your neighbors.</p>
+                <p>We source our ingredients from local farms whenever possible, support community events, and treat every customer like family. Because that's what small-town living is all about.</p>
+            </div>
+            <div class="community-icons">
+                <div class="community-icon">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Local Partnerships</h4>
+                    <p>Supporting our farmers</p>
+                </div>
+                <div class="community-icon">
+                    <i class="fas fa-users"></i>
+                    <h4>Community Events</h4>
+                    <p>Bringing folks together</p>
+                </div>
+                <div class="community-icon">
+                    <i class="fas fa-heart"></i>
+                    <h4>Family Owned</h4>
+                    <p>Three generations strong</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="contact" class="section">
+            <h2>Come Visit Us</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                    <p>123 Main Street<br>Downtown<br>Your Town, ST 12345</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Hours</h3>
+                    <p>Monday - Friday: 7am - 8pm<br>Saturday: 8am - 9pm<br>Sunday: 8am - 3pm</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-phone"></i> Contact</h3>
+                    <p>Phone: (555) 123-4567<br>Email: hello@mamaskitchen.com</p>
+                </div>
+            </div>
+        </section>
+    </div>
+        <div class="container">
+            <h2>Daily Specials</h2>
+            <div class="specials-grid">
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pot Roast" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Monday</span>
+                        <h3>Pot Roast Night</h3>
+                        <p>Tender beef pot roast with carrots, potatoes, and homemade gravy</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/6544378/pexels-photo-6544378.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken and Dumplings" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Tuesday</span>
+                        <h3>Chicken & Dumplings</h3>
+                        <p>Fluffy homemade dumplings in rich chicken broth with tender chicken</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/8689339/pexels-photo-8689339.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fried Catfish" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Wednesday</span>
+                        <h3>Fried Catfish</h3>
+                        <p>Fresh catfish, hand-breaded and fried, served with hush puppies</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/769290/pexels-photo-769290.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Smothered Pork Chops" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Thursday</span>
+                        <h3>Smothered Pork Chops</h3>
+                        <p>Thick-cut pork chops smothered in onion gravy with green beans</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/6478799/pexels-photo-6478799.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fish Fry" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Friday</span>
+                        <h3>Fish Fry</h3>
+                        <p>All-you-can-eat fish with french fries, coleslaw, and cornbread</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.pexels.com/photos/2491273/pexels-photo-2491273.jpeg?auto=compress&cs=tinysrgb&w=600" alt="BBQ Ribs" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Saturday</span>
+                        <h3>BBQ Ribs</h3>
+                        <p>Fall-off-the-bone ribs glazed with our secret sauce, served with mac & cheese</p>
+                    </div>
+                </div>
+                <div class="special-card sunday">
+                    <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sunday Supper" class="special-card-image">
+                    <div class="special-card-content">
+                        <span class="special-day"><i class="fas fa-calendar-day"></i> Sunday</span>
+                        <h3>Sunday Supper</h3>
+                        <p>Rotating family-style meal with all the fixings, just like Sunday dinner at home</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Neighbors Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Best fried chicken I've had since my grandma's! The mashed potatoes are creamy perfection, and that gravy... don't even get me started. This place is a local treasure."</p>
+                    <div class="testimonial-author">
+                        <span>— Sarah M.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"My family has been coming here for 15 years. It's become our Sunday tradition after church. The staff knows us by name, and the food is consistently delicious."</p>
+                    <div class="testimonial-author">
+                        <span>— Robert & Linda T.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Real Southern cooking made with love. The portions are generous, the prices are fair, and the atmosphere makes you feel right at home. Highly recommend the shrimp and grits!"</p>
+                    <div class="testimonial-author">
+                        <span>— James K.</span>
+                        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <h2>From Our Kitchen</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fried Chicken">
+                    <div class="gallery-overlay">
+                        <h4>Our Famous Fried Chicken</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/7627411/pexels-photo-7627411.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Comfort Food">
+                    <div class="gallery-overlay">
+                        <h4>Homestyle Comfort</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/5175563/pexels-photo-5175563.jpeg?auto=compress&cs=tinysrgb&w=600" alt="BBQ">
+                    <div class="gallery-overlay">
+                        <h4>Slow-Cooked BBQ</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Desserts">
+                    <div class="gallery-overlay">
+                        <h4>Homemade Desserts</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/4553111/pexels-photo-4553111.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fresh Ingredients">
+                    <div class="gallery-overlay">
+                        <h4>Fresh Ingredients Daily</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cozy Atmosphere">
+                    <div class="gallery-overlay">
+                        <h4>Cozy Atmosphere</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community">
+        <div class="container">
+            <h2>Proud to Serve Our Community</h2>
+            <div class="community-content">
+                <p>For three decades, we've been more than just a restaurant—we're part of the fabric of this town. From sponsoring little league teams to hosting church gatherings, we're honored to be your neighbors.</p>
+                <p>We source our ingredients from local farms whenever possible, support community events, and treat every customer like family. Because that's what small-town living is all about.</p>
+            </div>
+            <div class="community-icons">
+                <div class="community-icon">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Local Partnerships</h4>
+                    <p>Supporting our farmers</p>
+                </div>
+                <div class="community-icon">
+                    <i class="fas fa-users"></i>
+                    <h4>Community Events</h4>
+                    <p>Bringing folks together</p>
+                </div>
+                <div class="community-icon">
+                    <i class="fas fa-heart"></i>
+                    <h4>Family Owned</h4>
+                    <p>Three generations strong</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="contact" class="section">
+            <h2>Come Visit Us</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                    <p>123 Main Street<br>Downtown<br>Your Town, ST 12345</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Hours</h3>
+                    <p>Monday - Friday: 7am - 8pm<br>Saturday: 8am - 9pm<br>Sunday: 8am - 3pm</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-phone"></i> Contact</h3>
+                    <p>Phone: (555) 123-4567<br>Email: hello@mamaskitchen.com</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-utensils"></i> Mama's Kitchen</h4>
+                <p>Serving Southern comfort food with love since 1995. Where every meal feels like coming home.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4><i class="fas fa-clock"></i> Hours</h4>
+                <p>Monday - Friday: 7am - 8pm</p>
+                <p>Saturday: 8am - 9pm</p>
+                <p>Sunday: 8am - 3pm</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4><i class="fas fa-map-marker-alt"></i> Visit Us</h4>
+                <p>123 Main Street</p>
+                <p>Downtown</p>
+                <p>Your Town, ST 12345</p>
+                <p style="margin-top: 1rem;"><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> hello@mamaskitchen.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mama's Kitchen. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart"></i> and a whole lot of butter</p>
+        </div>
+    </footer>
+
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const header = document.querySelector('header');
+            
+            if (!header.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
